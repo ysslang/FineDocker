@@ -70,7 +70,8 @@ RUN set -eux; \
             tomcat/jre/bin/* \
             tomcat/webapps/webroot/WEB-INF/assist/phantomjs/*linux*/bin/*; \
 ## Precreate some folders and links
-  mkdir -p /0/tomcat/jre/lib/fonts/fallback; \
+  mkdir -p  /0/tomcat/jre/lib/fonts/fallback \
+            /0/links; \
   ln -fnrs  finedocker.sh tomcat/bin/finedocker.sh; \
   ln -fns   ~/.FineReport100; \
   ln -fnrs  tomcat/bin/catalina.sh \
@@ -95,11 +96,10 @@ RUN set -eux; \
             tomcat/webapps/webroot/WEB-INF/resources/ \
             tomcat/webapps/webroot/WEB-INF/schedule/ \
             tomcat/webapps/webroot/WEB-INF/web.xml \
-            .; \
-  ls -al /0/
+            ./links/
 
 # Mount writable layer as volume
-VOLUME [ "/0/tomcat" ]
+VOLUME [ "/0/tomcat/" ]
 
 # Check FineReport 10.0 working status
 HEALTHCHECK --interval=3m --timeout=3s --start-period=3m --retries=3 \
