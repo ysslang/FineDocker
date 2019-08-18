@@ -36,7 +36,7 @@ WORKDIR /0/
 ADD $FR10_LINUX_DEPLOY_PACK_URL /0/
 
 # Add finedocker script
-ADD --chown=root:root FINEDOCKER_SCRIPT_URL /0/finedocker.sh
+ADD --chown=root:root $FINEDOCKER_SCRIPT_URL /0/finedocker.sh
 
 # Deploy FineReport 10
 RUN set -eux;\
@@ -78,6 +78,8 @@ RUN set -eux;\
             tomcat/bin/shutdown.sh \
             tomcat/conf/ \
             tomcat/conf/server.xml \
+            tomcat/jre/ \
+            tomcat/jre/lib/fonts/ \
             tomcat/logs/ \
             tomcat/temp/ \
             tomcat/webapps/ \
@@ -108,6 +110,5 @@ EXPOSE 8080
 EXPOSE 38888
 
 # Define default command and running mode
-ENTRYPOINT ["finedocker.sh"]
+ENTRYPOINT ["sh", "finedocker.sh"]
 CMD ["run"]
-
