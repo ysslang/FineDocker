@@ -73,7 +73,7 @@ RUN set -eux; \
   mkdir -p  /0/tomcat/jre/lib/fonts/fallback \
             /0/links; \
   ln -fnrs  finedocker.sh tomcat/bin/finedocker.sh; \
-  ln -fns   ~/.FineReport100; \
+  ln -fns   ~/.FineReport100 ./links/; \
   ln -fnrs  tomcat/bin/catalina.sh \
             tomcat/bin/startup.sh \
             tomcat/bin/shutdown.sh \
