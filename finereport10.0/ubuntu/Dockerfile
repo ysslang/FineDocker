@@ -39,7 +39,7 @@ ADD $FR10_LINUX_DEPLOY_PACK_URL /0/
 ADD --chown=root:root $FINEDOCKER_SCRIPT_URL /0/finedocker.sh
 
 # Deploy FineReport 10
-RUN set -eux;\
+RUN set -eux; \
   \
 ## Handle timezone
   ln -snf /usr/share/zoneinfo/$TZ /etc/localtime; \
@@ -47,7 +47,7 @@ RUN set -eux;\
   \
 ## Install some necessary packages
   apt-get update -q; \
-  apt-get install -y -q --no-install-recommends\
+  apt-get install -y -q --no-install-recommends \
                   gosu \
                   curl \
                   wget \
@@ -71,8 +71,8 @@ RUN set -eux;\
             tomcat/webapps/webroot/WEB-INF/assist/phantomjs/*linux*/bin/*; \
 ## Precreate some folders and links
   mkdir -p /0/tomcat/jre/lib/fonts/fallback; \
-  ln -fns  finedocker.sh tomcat/bin/finedocker.sh; \
-  ln -fns   ~/.FineReport100 \
+  ln -fnrs  finedocker.sh tomcat/bin/finedocker.sh; \
+  ln -fns   ~/.FineReport100; \
   ln -fnrs  tomcat/bin/catalina.sh \
             tomcat/bin/startup.sh \
             tomcat/bin/shutdown.sh \
@@ -96,13 +96,13 @@ RUN set -eux;\
             tomcat/webapps/webroot/WEB-INF/schedule/ \
             tomcat/webapps/webroot/WEB-INF/web.xml \
             .; \
-  ls -al /0/; 
+  ls -al /0/
 
 # Mount writable layer as volume
 VOLUME [ "/0/tomcat" ]
 
 # Check FineReport 10.0 working status
-HEALTHCHECK --interval=3m --timeout=3s --start-period=3m --retries=3\
+HEALTHCHECK --interval=3m --timeout=3s --start-period=3m --retries=3 \
   CMD curl $HEALTH_CHECK_URL -s | grep 'result' -q || exit 1
 
 # Expose HTTP port and WebSocket port
