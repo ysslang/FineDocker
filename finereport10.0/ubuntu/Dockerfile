@@ -24,8 +24,8 @@ LABEL \
 ENV \
   TZ=$TZ \
   LANG=C.UTF-8 \
-  JAVA_HOME=/0/tomcat/jre/ \
-  CATALINA_HOME=/0/tomcat/ \
+  JAVA_HOME=/0/tomcat/jre \
+  CATALINA_HOME=/0/tomcat \
   PATH="/0/tomcat/jre/bin:/0/tomcat/bin:$PATH" \
   HEALTH_CHECK_URL="http://localhost:8080/webroot/decision/view/report?op=fr_base&cmd=evaluate_formula&expression=jvm()"
 
