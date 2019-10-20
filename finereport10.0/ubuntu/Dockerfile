@@ -41,8 +41,8 @@ RUN set -eux; \
   echo $TZ > /etc/timezone; \
   \
 ## Install some necessary packages
-  apt-get update -q; \
-  apt-get install -y -q --no-install-recommends \
+  apt-get update -qq; \
+  apt-get install -y -q -o Dpkg::Use-Pty=0 --no-install-recommends \
                   gosu \
                   curl \
                   wget \
