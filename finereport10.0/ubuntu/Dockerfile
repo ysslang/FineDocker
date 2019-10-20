@@ -33,12 +33,6 @@ ENV \
 # Create work directory
 WORKDIR /0/
 
-# Add FineReport 10.0 deployment package, with jre and tomcat
-ADD $FR10_LINUX_DEPLOY_PACK_URL /0/
-
-# Add finedocker script
-ADD --chown=root:root $FINEDOCKER_SCRIPT_URL /0/finedocker.sh
-
 # Deploy FineReport 10
 RUN set -eux; \
   \
