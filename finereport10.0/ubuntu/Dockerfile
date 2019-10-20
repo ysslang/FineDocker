@@ -27,16 +27,11 @@ ENV \
   JAVA_HOME=/0/tomcat/jre/ \
   CATALINA_HOME=/0/tomcat/ \
   PATH="/0/tomcat/jre/bin:/0/tomcat/bin:$PATH" \
-  HEALTH_CHECK_URL="http://localhost:8080/webroot/decision/view/report?op=fr_base&cmd=evaluate_formula&expression=jvm()"
+  HEALTH_CHECK_URL="http://localhost:8080/webroot/decision/system/health" \
+  HEALTH_CHECK_PATTERN="{\"data\":\"OK\"}"
 
 # Create work directory
 WORKDIR /0/
-
-# Add FineReport 10.0 deployment package, with jre and tomcat
-ADD $FR10_LINUX_DEPLOY_PACK_URL /0/
-
-# Add finedocker script
-ADD --chown=root:root $FINEDOCKER_SCRIPT_URL /0/finedocker.sh
 
 # Deploy FineReport 10
 RUN set -eux; \
@@ -46,8 +41,8 @@ RUN set -eux; \
   echo $TZ > /etc/timezone; \
   \
 ## Install some necessary packages
-  apt-get update -q; \
-  apt-get install -y -q --no-install-recommends \
+  apt-get update -qq; \
+  apt-get install -y -qq --no-install-recommends \
                   gosu \
                   curl \
                   wget \
@@ -55,8 +50,12 @@ RUN set -eux; \
                   iproute2 \
                   fontconfig \
                   lsb-release \
-  ; \
+  > /dev/null; \
   rm -rf /var/lib/apt/lists/*; \
+  \
+## Add FineReport 10.0 deployment package, with jre and tomcat, and add finedocker script
+  wget --no-check-certificate --no-verbose -O /0/tomcat-linux.tar.gz $FR10_LINUX_DEPLOY_PACK_URL; \
+  wget --no-check-certificate --no-verbose -O /0/finedocker.sh $FINEDOCKER_SCRIPT_URL; \
   \
 ## Unpack FineReport 10.0 package
   tar xzf tomcat-linux.tar.gz; \
@@ -103,7 +102,7 @@ VOLUME [ "/0/tomcat/" ]
 
 # Check FineReport 10.0 working status
 HEALTHCHECK --interval=3m --timeout=3s --start-period=3m --retries=3 \
-  CMD curl $HEALTH_CHECK_URL -s | grep 'result' -q || exit 1
+  CMD curl $HEALTH_CHECK_URL -s | grep $HEALTH_CHECK_PATTERN -q || exit 1
 
 # Expose HTTP port and WebSocket port
 EXPOSE 8080
