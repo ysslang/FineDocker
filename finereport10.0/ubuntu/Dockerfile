@@ -27,7 +27,8 @@ ENV \
   JAVA_HOME=/0/tomcat/jre/ \
   CATALINA_HOME=/0/tomcat/ \
   PATH="/0/tomcat/jre/bin:/0/tomcat/bin:$PATH" \
-  HEALTH_CHECK_URL="http://localhost:8080/webroot/decision/system/health"
+  HEALTH_CHECK_URL="http://localhost:8080/webroot/decision/system/health" \
+  HEALTH_CHECK_PATTERN="{\"data\":\"OK\"}"
 
 # Create work directory
 WORKDIR /0/
@@ -107,7 +108,7 @@ VOLUME [ "/0/tomcat/" ]
 
 # Check FineReport 10.0 working status
 HEALTHCHECK --interval=3m --timeout=3s --start-period=3m --retries=3 \
-  CMD curl $HEALTH_CHECK_URL -s | grep '"{"data":"OK"}"' -q || exit 1
+  CMD curl $HEALTH_CHECK_URL -s | grep $HEALTH_CHECK_PATTERN -q || exit 1
 
 # Expose HTTP port and WebSocket port
 EXPOSE 8080
