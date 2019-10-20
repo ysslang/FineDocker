@@ -42,7 +42,7 @@ RUN set -eux; \
   \
 ## Install some necessary packages
   apt-get update -qq; \
-  apt-get install -y -q -o Dpkg::Use-Pty=0 --no-install-recommends \
+  apt-get install -y -qq --no-install-recommends \
                   gosu \
                   curl \
                   wget \
@@ -50,7 +50,7 @@ RUN set -eux; \
                   iproute2 \
                   fontconfig \
                   lsb-release \
-  ; \
+  > /dev/null; \
   rm -rf /var/lib/apt/lists/*; \
   \
 ## Add FineReport 10.0 deployment package, with jre and tomcat, and add finedocker script
