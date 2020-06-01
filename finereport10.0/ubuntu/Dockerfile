@@ -67,7 +67,7 @@ RUN set -eux; \
   chmod +x  finedocker.sh \
             tomcat/bin/*.sh \
             tomcat/jre/bin/* \
-            tomcat/webapps/webroot/WEB-INF/assist/phantomjs/*linux*/bin/*; \
+            tomcat/webapps/webroot/WEB-INF/assist/*/bin/*; \
 ## Precreate some folders and links
   mkdir -p  /0/tomcat/jre/lib/fonts/fallback \
             /0/links; \
