@@ -28,7 +28,7 @@ ENV \
   CATALINA_HOME=/0/tomcat/ \
   PATH="/0/tomcat/jre/bin:/0/tomcat/bin:$PATH" \
   HEALTH_CHECK_URL="http://localhost:8080/webroot/decision/system/health" \
-  HEALTH_CHECK_PATTERN="{\"data\":\"OK\"}"
+  HEALTH_CHECK_PATTERN="\"level\":\"HEALTH\""
 
 # Create work directory
 WORKDIR /0/
@@ -68,34 +68,7 @@ RUN set -eux; \
             tomcat/bin/*.sh \
             tomcat/jre/bin/* \
             tomcat/webapps/webroot/WEB-INF/assist/*/bin/*; \
-## Precreate some folders and links
-  mkdir -p  /0/tomcat/jre/lib/fonts/fallback \
-            /0/links; \
-  ln -fnrs  finedocker.sh tomcat/bin/finedocker.sh; \
-  ln -fns   ~/.FineReport100 ./links/; \
-  ln -fnrs  tomcat/bin/catalina.sh \
-            tomcat/bin/startup.sh \
-            tomcat/bin/shutdown.sh \
-            tomcat/conf/ \
-            tomcat/conf/server.xml \
-            tomcat/jre/ \
-            tomcat/jre/lib/fonts/ \
-            tomcat/logs/ \
-            tomcat/temp/ \
-            tomcat/webapps/ \
-            tomcat/webapps/webroot/ \
-            tomcat/webapps/webroot/help \
-            tomcat/webapps/webroot/WEB-INF/ \
-            tomcat/webapps/webroot/WEB-INF/classes \
-            tomcat/webapps/webroot/WEB-INF/embed/finedb \
-            tomcat/webapps/webroot/WEB-INF/config \
-            tomcat/webapps/webroot/WEB-INF/lib/ \
-            tomcat/webapps/webroot/WEB-INF/plugins/ \
-            tomcat/webapps/webroot/WEB-INF/reportlets/ \
-            tomcat/webapps/webroot/WEB-INF/resources/ \
-            tomcat/webapps/webroot/WEB-INF/schedule/ \
-            tomcat/webapps/webroot/WEB-INF/web.xml \
-            ./links/
+
 
 # Mount writable layer as volume
 VOLUME [ "/0/tomcat/" ]
