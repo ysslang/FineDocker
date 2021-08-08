@@ -27,9 +27,9 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           push: true
-          tags: my-docker-hub-namespace/my-docker-hub-repository:${ GITHUB_REF##*/ }
+          tags: ysslang/finedocker:${GITHUB_REF##*/}
       - name: Build container image
         uses: docker/build-push-action@v2
         with:
           push: true
-          tags: docker.pkg.github.com/${{ github.repository }}/my-image:${ GITHUB_REF##*/ }
+          tags: docker.pkg.github.com/ysslang/finedocker:${GITHUB_REF##*/}
