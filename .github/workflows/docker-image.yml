@@ -1,4 +1,4 @@
-name: Docker Image CI test
+name: Stable Docker Image CI
 
 on:
   push:
@@ -14,5 +14,5 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    - name: Build the Docker image
+    - name: Build the stable version Docker image
       run: docker build . --file Dockerfile --tag ysslang/finedocker:test_build_$(date +%s)
