@@ -1,4 +1,4 @@
-name: Docker Image CI
+name: build dev version
 
 on:
   push:
@@ -14,5 +14,5 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    - name: Build the Docker image
+    - name: Build the dev version Docker image
       run: docker build . --file Dockerfile --tag ysslang/finedocker:dev_$(date +%s)
