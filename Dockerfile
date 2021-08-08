@@ -66,10 +66,10 @@ RUN set -eux; \
   \
 ## Handle permission issues
   chown root:root -R .; \
-  chmod +x  tomcat/bin/*.sh \
-            tomcat/jdk/bin/* \
-            tomcat/jdk/jre/bin/* \
-            tomcat/webapps/webroot/WEB-INF/assist/*/bin/*; 
+  chmod +x -R tomcat/bin/ \
+              tomcat/jdk/bin/ \
+              tomcat/jdk/jre/bin/ \
+              tomcat/webapps/webroot/WEB-INF/assist/*/bin/; 
 
 
 # Create work directory
