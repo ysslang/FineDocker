@@ -23,7 +23,7 @@ LABEL \
 # Set some environment variables
 ENV \
   TZ=$TZ \
-  LANG=C.UTF-8 \
+  LANG=zh_CN.UTF-8 \
   JAVA_HOME=/opt/tomcat/jdk/jre/ \
   CATALINA_HOME=/opt/tomcat/ \
   PATH="/opt/tomcat/jdk/bin:/opt/tomcat/jdk/jre/bin:/opt/tomcat/bin:$PATH" \
@@ -50,6 +50,7 @@ RUN set -eux; \
                   fontconfig \
                   lsb-release \
                   ca-certificates \
+                  language-pack-zh-hans \
   > /dev/null; \
   rm -rf /var/lib/apt/lists/*; \
   \
