@@ -29,9 +29,9 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           push: true
-          tags: ysslang/finedocker:${{ env.VERSION }}
+          tags: ysslang/finedocker:${{ env.VERSION }},ysslang/finedocker:latest
       - name: Build container image
         uses: docker/build-push-action@v2
         with:
           push: true
-          tags: docker.pkg.github.com/ysslang/finedocker:${{ env.VERSION }}
+          tags: docker.pkg.github.com/ysslang/finedocker:${{ env.VERSION }},docker.pkg.github.com/ysslang/finedocker:latest
